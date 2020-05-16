@@ -7,11 +7,6 @@ const db = require('./app/config/db.config.js');
 
 const User = db.users;
 
-app.get('/', (req, res) => res.send('Hello World!'))
-
-app.listen(port, () => console.log(`Example app listening on port ${port}!`))
-
-
 // force: true will drop the table if it already exists
 db.sequelize.sync({force: true}).then(() => {
     console.log('Drop and Resync with { force: true }');
