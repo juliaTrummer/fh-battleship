@@ -1,1 +1,1 @@
-# fh-battleship
+# BattleShip Game
