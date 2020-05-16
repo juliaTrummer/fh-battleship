@@ -8,7 +8,7 @@ const db = require('./app/config/db.config.js');
 const User = db.users;
 
 app.get('/', function (req, res) {
-    res.sendfile('/index.html');
+    res.sendfile(__dirname + '/index.html');
 });
 
 // force: true will drop the table if it already exists
