@@ -8,10 +8,21 @@
     <link rel="stylesheet" type="text/css" href="css/style.css">
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css"
         integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+    <script>
+        var host = location.origin.replace(/^http/, 'ws')
+        var ws = new WebSocket(host);
+        ws.onmessage = function (event) {
+            var li = document.createElement('li');
+            li.innerHTML = JSON.parse(event.data);
+            document.querySelector('#pings').appendChild(li);
+        };
+    </script>
 </head>
 
 <body>
     <h1>Battleship Game</h1>
+    <h1>Pings</h1>
+    <ul id='pings'></ul>
     <div id="nameInput" class="input-group">
         <input type="text" class="form-control" placeholder="Enter a username" />
         <span class="input-group-btn"></span>
@@ -22,15 +33,6 @@
         <table id="tableGrid">
         </table>
     </div>
-    <script>
-        var host = location.origin.replace(/^http/, 'ws')
-        var ws = new WebSocket(host);
-        ws.onmessage = function (event) {
-            var li = document.createElement('li');
-            li.innerHTML = JSON.parse(event.data);
-            document.querySelector('#pings').appendChild(li);
-        };
-    </script>
     <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js"
         integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n"
         crossorigin="anonymous"></script>
