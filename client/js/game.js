@@ -66,6 +66,8 @@ $(function () {
 
     function onSubmit(){
         greeting.text('Hello ' + formControl.val() + "!");
+
+
         //TODO: take this value for the prototype
         username = formControl.val();
         formControl.val("");

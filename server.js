@@ -1,36 +1,35 @@
+var WebSocketServer = require("ws").Server;
+var http = require("http");
 var express = require('express');
 var app = express();
+var port = process.env.PORT || 5000
 var bodyParser = require('body-parser');
-app.use(bodyParser.json())
+app.use(bodyParser.json());
+
 
 const db = require('./app/config/db.config.js');
-
 const User = db.users;
 
 app.use(express.static('client'));
 
-// force: true will drop the table if it already exists
-db.sequelize.sync({force: true}).then(() => {
-    console.log('Drop and Resync with { force: true }');
-    initial();
-});
-require('./app/route/user.route.js')(app);
+var server = http.createServer(app)
+server.listen(port)
 
-// Create a Server
-var server = app.listen(process.env.PORT || 5000, function () {
+console.log("http server listening on %d", port);
 
-    var host = server.address().address
-    var port = server.address().port
+var wss = new WebSocketServer({server: server});
+console.log("websocket server created");
 
-    console.log("App listening at http://%s:%s", host, port)
+wss.on("connection", function(ws) {
+    var id = setInterval(function() {
+        ws.send(JSON.stringify(new Date()), function() {  })
+    }, 1000)
+
+    console.log("websocket connection open")
+
+    ws.on("close", function() {
+        console.log("websocket connection close")
+        clearInterval(id)
+    })
 })
-
-function initial() {
-    User.create({
-       username: "NONAME"
-    });
-
-    User.create({
-        username: "JULIA"
-    });
-}
+// force: true will drop the table if it already exists
