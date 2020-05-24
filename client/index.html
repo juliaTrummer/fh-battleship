@@ -14,7 +14,7 @@
         ws.onmessage = function (event) {
             var li = document.createElement('li');
             li.innerHTML = JSON.parse(event.data);
-            document.querySelector('#pings').appendChild(li);
+            document.querySelector('#pings1').appendChild(li);
         };
     </script>
 </head>
@@ -22,7 +22,7 @@
 <body>
     <h1>Battleship Game</h1>
     <h1>Pings</h1>
-    <ul id='pings'></ul>
+    <ul id='pings1'></ul>
     <div id="nameInput" class="input-group">
         <input type="text" class="form-control" placeholder="Enter a username" />
         <span class="input-group-btn"></span>
